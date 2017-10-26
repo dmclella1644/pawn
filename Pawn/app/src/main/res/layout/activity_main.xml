@@ -6,6 +6,12 @@
     android:layout_height="match_parent"
     tools:context="com.example.pawn.pawn.MainActivity">
 
+    <!-- *
+         * This is where the UI comes into play. Currently, there is one
+         * screen and one button on that screen. To make the UI better,
+         * we could add more buttons, have a nicer background and
+         * interface, other interesting things.
+    -->
     <Button
         android:id="@+id/picture"
         android:layout_height="wrap_content"
