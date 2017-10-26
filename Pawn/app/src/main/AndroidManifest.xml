@@ -2,11 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.pawn.pawn">
 
+    <!-- *
+         * This is where to put user permissions and features. The camera requires
+         * the camera feature. Storing the data requires the read, write, and sdk 18.
+     -->
     <uses-feature android:name="android.hardware.camera"
         android:required="true" />
-
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="18"/>
 
@@ -17,6 +19,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <!-- *
+             * fileProvider requires a provider. This is so the photo has a Uri.
+             * After that is the crop tool. This is from another app, so we need
+             * to site them? (theartofdev)
+        -->
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.example.android.fileprovider"
