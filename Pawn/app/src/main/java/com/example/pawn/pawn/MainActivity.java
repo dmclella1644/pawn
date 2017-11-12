@@ -1,5 +1,10 @@
 package com.example.pawn.pawn;
 
+/*
+ * This activity is for the somewhat main interface and taking photos.
+ */
+
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Environment;
@@ -19,8 +24,6 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-//import static com.example.pawn.pawn.R.raw.color_counter;
-
 public class MainActivity extends AppCompatActivity {
 
     /*
@@ -39,6 +42,22 @@ public class MainActivity extends AppCompatActivity {
                 dispatchTakePictureIntent();
             }
         });
+        final Context context = this;
+        Button acquire2 = (Button) findViewById(R.id.chess);
+        acquire2.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(context, MainActivity2.class);
+                startActivity(intent);
+            }
+        });
+        final Context context2 = this;
+        Button acquire3 = (Button) findViewById(R.id.savedGames);
+        acquire3.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(context2, MainActivity3.class);
+                startActivity(intent);
+            }
+        });
     }
 
     /*
@@ -54,14 +73,36 @@ public class MainActivity extends AppCompatActivity {
 
     public void startCropImageActivity(Uri imageURI) {
         /*
-         * This is where the cropping, Python code, and deletion occur. Currently,
-         * the execution of the Python code is failing. Nothing wrong with Python,
-         * just Runtime.exec
+         * This is where the cropping, Python code, and deletion occur. For
+         * the Python code, we could call something else to run it or use
+         * qpython or Kivy.
          */
         CropImage.activity(imageURI).start(this);
+        //color_counter.makeChessboard(mCurrentPhotoPath);
         //after image has been edited to have the chessboard within it, we call python code.
         /*try {
-            Process p = Runtime.getRuntime().exec("python color_counter.py");
+            Runtime rt = Runtime.getRuntime();
+            String[] commands = {"color_counter.py"};
+            Process proc = rt.exec(commands);
+
+            BufferedReader stdInput = new BufferedReader(new
+                    InputStreamReader(proc.getInputStream()));
+
+            BufferedReader stdError = new BufferedReader(new
+                    InputStreamReader(proc.getErrorStream()));
+
+// read the output from the command
+            Log.d("stdout","Here is the standard output of the command:");
+            String s = null;
+            while ((s = stdInput.readLine()) != null) {
+                Log.d("stdout",s);
+            }
+
+// read any errors from the attempted command
+            Log.d("stderr","Here is the standard error of the command (if any):");
+            while ((s = stdError.readLine()) != null) {
+                Log.d("stderr",s);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -74,6 +115,16 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("file_delete","file not Deleted :" + mCurrentPhotoPath);
             }
         }*/
+        /*
+         * For the time being, let's assume magic happened and the code acquired
+         * the chessboard and it is a normal starting game of chess. Board.java
+         * creates the board and Game.java creates the game. The board for the
+         * game is created before the game starts and put into the game via
+         * Game(final Board). seat(final Player, final Player) defines who is
+         * white and black, with the first param being white. If the game is
+         * first starting out, then do begin() then run(). There is currently
+         * no other way to start the game, like in the middle of the game.
+         */
     }
 
     /*
@@ -136,6 +187,7 @@ public class MainActivity extends AppCompatActivity {
                     //startCropImageActivity(UriForPhoto);
                     break;
                 default:
+                    //close_nowrite showed up
                     Log.d("onEvent", "YES! " + event);
                     break;
             }
