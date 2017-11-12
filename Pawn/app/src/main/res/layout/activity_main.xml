@@ -7,25 +7,62 @@
     tools:context="com.example.pawn.pawn.MainActivity">
 
     <!-- *
-         * This is where the UI comes into play. Currently, there is one
-         * screen and one button on that screen. To make the UI better,
-         * we could add more buttons, have a nicer background and
-         * interface, other interesting things.
+         * Buttons have an id, text, layout, and constraints. This is where we could
+         * have our main menu or it could be before this. Login is definitely before
+         * this and would require a way to store them and access.
+         * This activity has 3 buttons, the picture, the chessboard, and the saved games.
+         * The picture takes a picture by using the phone's camera. After the picture is
+         * taken and sent to the image recognition code, it then is either saved or
+         * played or deleted. All of this should happen in MainActivity.java. It is
+         * when the user wishes to play the game should it transition to activity_main2.xml
     -->
+
     <Button
         android:id="@+id/picture"
+        android:text="Take a photo"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:text="Take a photo"
         android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="8dp"
         android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_bias="0.424"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="8dp"
-        app:layout_constraintVertical_bias="0.228" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.424"
+        app:layout_constraintVertical_bias="0.228"/>
+
+    <Button
+        android:id="@+id/chess"
+        android:text="Chess Board"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.424"
+        app:layout_constraintVertical_bias="0.428" />
+
+    <Button
+        android:id="@+id/savedGames"
+        android:text="Saved Games"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.424"
+        app:layout_constraintVertical_bias="0.628" />
 
 </android.support.constraint.ConstraintLayout>
