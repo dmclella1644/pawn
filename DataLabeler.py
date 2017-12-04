@@ -1,3 +1,14 @@
+"""
+Run Command
+
+python DataLabeler imageName orientation
+
+imageName = name of image file, MUST BE IN SAME DIRECTORY
+            DO NOT INCLUDE THE EXTENSION
+            
+orientation = Side the whites are on, must be one of the following:
+              Top, Bottom, Left, Right
+"""
 import os
 import cv2
 import numpy as np
@@ -13,7 +24,7 @@ from Model import Model
 
 class DataLabeler:
 
-    def __init__(self, imagePath, imageName, orientation, cornerPoints, imagePoints = np.array([[0,0], [640,0], [640,640], [0,640]], np.float32), 
+    def __init__(self, imagePath, imageName, orientation = "Bottom", imagePoints = np.array([[0,0], [640,0], [640,640], [0,640]], np.float32), 
                  extended_image_points = np.array([[0,0], [640,0], [640,160], [0,160]], np.float32)):
 
         self.image = self.initializeImage(imagePath)
@@ -21,7 +32,7 @@ class DataLabeler:
         self.image_name = imageName
         self.transformed_image = None
         self.extended_transformed_image = None
-        self.board_corners = cornerPoints
+        self.board_corners = []
         self.orientation = orientation
         self.transformed_perspective = None
         self.extended_transformed_perspective = None
@@ -32,6 +43,7 @@ class DataLabeler:
         self.boardArray = []
         self.labeler = Model()
 
+        self.selectPoints()
         if len(self.board_corners) == 4:
             self.board_corners = self.orderCorners(self.board_corners)
             self.applyTransformation()
@@ -57,6 +69,37 @@ class DataLabeler:
         self.extended_transformed_perspective = cv2.getPerspectiveTransform(self.extended_corners, self.extended_image_points)
         self.extended_transformed_image = cv2.warpPerspective(self.image, self.extended_transformed_perspective, (640, 160))
         cv2.imwrite("transformedE.jpg", self.extended_transformed_image)
+        
+    def clickPoints(self, event, x, y, flags, param):
+        if event == cv2.EVENT_LBUTTONDOWN and len(self.board_corners) < 4:
+            self.board_corners.append([x,y])
+            print(self.board_corners)
+
+    def selectPoints(self):
+        self.board_corners = []
+        clone = self.image.copy()
+        cv2.namedWindow("image", 0)
+        cv2.setMouseCallback("image", self.clickPoints)
+
+        while True:
+            cv2.imshow("image", clone)
+            key = cv2.waitKey(0)
+
+            if key == ord("s"):
+                self.stop_picture = True
+                break
+
+            if key == ord("c") and len(self.board_corners) == 4:
+                break
+
+            if key == ord("u") and self.board_corners > 0:
+                del self.board_corners[-1]
+                print(self.board_corners)
+
+        if self.stop_picture == False:
+            self.board_corners = self.orderCorners(self.board_corners)
+        
+        cv2.destroyAllWindows()
 
     def orderCorners(self, corners):
         temp = np.array(corners, dtype="int")
@@ -150,5 +193,12 @@ class DataLabeler:
                     self.boardArray[int(place/8)][place%8] = self.splitAndLabelHelper(x, x+1, y, y+1, width, height, heightE, baseImage, baseImageE)
                     place = place + 1
                     
-    def getLabels(self):
-        return self.boardArray
+    def printLabels(self):
+        board = ""
+        for i in range(0, 64):
+            board += self.boardArray[i%8][7-(int(i/8))] + " "
+        print(board)
+        
+if __name__ == "__main__":
+    dl = DataLabeler(sys.argv[1]+".jpg", sys.argv[1], sys.argv[2])
+    dl.printLabels()
