@@ -61,7 +61,8 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 
 import static jwtc.android.chess.CornerSelector.getCornerPosition;
-import static jwtc.chess.JNI.temp;
+import static jwtc.android.chess.textbox.getBoardStringGlobal;
+import static jwtc.chess.JNI.addChessBoardString;
 
 public class start extends AppCompatActivity {
 
@@ -266,8 +267,9 @@ public class start extends AppCompatActivity {
 				//startCornerSelectorActivity();
 			}
 		} else if(requestCode == 3) {
-			Log.d("String_array","starting");
-			temp();
+			Log.d("String_array","starting " + getBoardStringGlobal());
+			addChessBoardString();
+			Log.d("String_array", "finished");
 		} else if(requestCode == 2) {
 			if(resultCode == RESULT_CANCELED || resultCode == RESULT_OK || resultCode == 0) {
 				//start another activity

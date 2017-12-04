@@ -13,7 +13,7 @@ public class JNI {
 	}
 	private static String arr;
 
-	public static void temp(){
+	public static void addChessBoardString(){
 		arr = getBoardStringGlobal();
 		Log.d("String_array",""+arr);
 	}

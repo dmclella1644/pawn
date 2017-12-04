@@ -1,8 +1,12 @@
 package jwtc.android.chess;
 
 import android.app.Activity;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -22,10 +26,12 @@ public class textbox extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.textbox);
         Button acquire = (Button) findViewById(R.id.button);
-        EditText input = (EditText) findViewById(R.id.editText2);
+        final EditText input = (EditText) findViewById(R.id.editText2);
         boardString = input.getText().toString();
+        Log.d("Board_string", boardString);
         acquire.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                boardString = input.getText().toString();
                 finish();
             }
         });
