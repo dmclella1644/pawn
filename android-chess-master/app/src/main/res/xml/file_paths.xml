@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- *
+         * Only used for the fileProvider. This could be put under another location, but
+         * is needed so the program knows the path name for the file.
+    -->
+    <paths xmlns:android="http://schemas.android.com/apk/res/android">
+        <external-path name="chess_images"
+            path="Android/data/jwtc.android.chess/files/Pictures" />
+    </paths>
+</PreferenceScreen>

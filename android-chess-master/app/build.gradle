@@ -1,0 +1,38 @@
+apply plugin: 'com.android.application'
+
+android {
+    signingConfigs {
+        config {
+            storeFile file('/Users/jcarolus/Projecten/Chess/android-keystore')
+        }
+    }
+    compileSdkVersion 24
+    buildToolsVersion '25.0.0'
+    defaultConfig {
+        applicationId "jwtc.android.chess"
+        minSdkVersion 14
+        targetSdkVersion 24
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+    lintOptions {
+        disable 'MissingTranslation'
+    }
+}
+
+dependencies {
+    compile 'com.android.support:support-v4:24.0.0'
+    compile 'com.android.support:appcompat-v7:24.0.0'
+    compile 'com.android.support:mediarouter-v7:24.0.0'
+    compile 'com.google.android.gms:play-services-cast:8.3.0'
+    compile 'com.google.android.gms:play-services-analytics:8.3.0'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.larswerkman:HoloColorPicker:1.5'
+    compile files('libs/play-hub-support.jar')
+}
+
+apply plugin: 'com.google.gms.google-services'
