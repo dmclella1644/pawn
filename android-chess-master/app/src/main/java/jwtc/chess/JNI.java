@@ -20,7 +20,7 @@ public class JNI {
 	
 	public void newGame(){
 		reset();
-		if(arr == null){
+		if(arr.matches("")){
 			arr = "br bn bb bq bk bb bn br bp bp bp bp bp bp bp bp ee ee ee ee ee ee ee ee ee ee ee ee ee ee ee ee ee ee ee ee ee ee ee ee ee ee ee ee ee ee ee ee wp wp wp wp wp wp wp wp wr wn wb wq wk wb wn wr";
 		}
 //		String[][] arr = {{"ee","ee","ee","ee","ee","ee","ee","ee"},
